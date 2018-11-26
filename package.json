@@ -1,0 +1,39 @@
+{
+  "name": "react-redux-materialui-nextjs-boilerplate",
+  "version": "1.0.0",
+  "author": "Vinh Huynh <hellangle381@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "es6-promise": "4.2.5",
+    "htmlescape": "^1.1.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "jss": "latest",
+    "next": "latest",
+    "next-redux-saga": "3.0.0",
+    "next-redux-wrapper": "2.0.0",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-jss": "latest",
+    "react-redux": "5.1.1",
+    "redux": "4.0.1",
+    "redux-saga": "0.16.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.6.0",
+    "nodemon": "^1.17.5",
+    "redux-devtools-extension": "^2.13.5"
+  }
+}
