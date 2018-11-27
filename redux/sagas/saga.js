@@ -1,40 +1,22 @@
-import { delay } from 'redux-saga';
 import {
-  all, call, put, take, takeLatest,
+  fork, put, takeLatest,
 } from 'redux-saga/effects';
 import es6promise from 'es6-promise';
 import 'isomorphic-unfetch';
 
-import {
-  actionTypes, failure, loadDataSuccess, tickClock,
-} from '../actions/actions';
-
 es6promise.polyfill();
 
-function* runClockSaga() {
-  yield take(actionTypes.START_CLOCK);
-  while (true) {
-    yield put(tickClock(false));
-    yield call(delay, 1000);
-  }
+function* login(action) {
+  console.log('action -> ', action);
+  yield put({
+    type: 'setAuth',
+  });
 }
 
-function* loadDataSaga() {
-  try {
-    // eslint-disable-next-line no-undef
-    const res = yield fetch('https://jsonplaceholder.typicode.com/users');
-    const data = yield res.json();
-    yield put(loadDataSuccess(data));
-  } catch (err) {
-    yield put(failure(err));
-  }
+function* watchLogin() {
+  yield takeLatest('LOGIN_REQUEST', login);
 }
 
-function* rootSaga() {
-  yield all([
-    call(runClockSaga),
-    takeLatest(actionTypes.LOAD_DATA, loadDataSaga),
-  ]);
+export default function* rootSaga() {
+  yield fork(watchLogin);
 }
-
-export default rootSaga;

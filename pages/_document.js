@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
+import getPageContext from './pageContext';
 
 class MyDocument extends Document {
   render() {
@@ -55,14 +56,14 @@ MyDocument.getInitialProps = (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext;
+  const pageContext = getPageContext();
   const page = ctx.renderPage((Component) => {
-    const WrappedComponent = (props) => {
-      pageContext = props.pageContext;
+    const WrappedComponent = props => {
       return <Component {...props} />;
     };
-
+    
     WrappedComponent.propTypes = {
+      // eslint-disable-next-line react/forbid-prop-types
       pageContext: PropTypes.object.isRequired,
     };
 
@@ -72,13 +73,12 @@ MyDocument.getInitialProps = (ctx) => {
   return {
     ...page,
     pageContext,
-    // Styles fragment is rendered after the app and page rendering finish.
     styles: (
       <React.Fragment>
         <style
           id="jss-server-side"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
+          dangerouslySetInnerHTML={{ __html: pageContext && pageContext.sheetsRegistry.toString() }}
         />
       </React.Fragment>
     ),

@@ -1,44 +1,38 @@
 /* eslint-disable react/jsx-filename-extension */
-import Link from 'next/link';
+import React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector, createSelector } from 'reselect';
+import { bindActionCreators } from 'redux';
+import Button from '@material-ui/core/Button';
 
-import Counter from './counter';
-import Clock from './clock';
+import businessActions from '../redux/actions/actions';
 
-function Page({ 
-  error, lastUpdate, light, linkTo, NavigateTo, placeholderData, title,
-}) {
+function Page({ token, login }) {
   return (
+    // eslint-disable-next-line react/react-in-jsx-scope
     <div>
-      <h1>
-        {title}
-      </h1>
-      <Clock lastUpdate={lastUpdate} light={light} />
-      <Counter />
-      <nav>
-        <Link href={linkTo}>
-          <a>
-Navigate:
-{' '}
-{NavigateTo}
-</a>
-        </Link>
-      </nav>
-      {placeholderData
-        && <pre>
-          <code>
-            {JSON.stringify(placeholderData, null, 2)}
-          </code>
-        </pre>}
-      {error
-        && <p style={{ color: 'red' }}>
-
-          Error:
-{' '}
-{error.message}
-        </p>}
+      <h1>{token}</h1>
+      <Button variant="contained" color="secondary" onClick={login}>Login</Button>
     </div>
   );
 }
 
-export default connect(state => state)(Page);
+const selectAuth = state => state.get('auth');
+
+const makeWelcomeSelector = () => createSelector(
+  selectAuth,
+  state => state.get('auth_token'),
+);
+
+const mapStateToProps = createStructuredSelector({
+  token: makeWelcomeSelector(),
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    login: businessActions.loginRequest,
+  },
+  dispatch,
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

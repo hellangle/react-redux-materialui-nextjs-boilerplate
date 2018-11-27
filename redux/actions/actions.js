@@ -1,52 +1,11 @@
-export const actionTypes = {
-  FAILURE: 'FAILURE',
-  INCREMENT: 'INCREMENT',
-  DECREMENT: 'DECREMENT',
-  RESET: 'RESET',
-  LOAD_DATA: 'LOAD_DATA',
-  LOAD_DATA_SUCCESS: 'LOAD_DATA_SUCCESS',
-  START_CLOCK: 'START_CLOCK',
-  TICK_CLOCK: 'TICK_CLOCK',
-};
 
-export function failure(error) {
-  return {
-    type: actionTypes.FAILURE,
-    error,
-  };
-}
+import { createActions } from 'redux-actions';
 
-export function increment() {
-  return { type: actionTypes.INCREMENT };
-}
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const SET_AUTH = 'SET_AUTH';
 
-export function decrement() {
-  return { type: actionTypes.DECREMENT };
-}
+const businessActions = createActions({}, ...Object.values({
+  LOGIN_REQUEST, SET_AUTH,
+}));
 
-export function reset() {
-  return { type: actionTypes.RESET };
-}
-
-export function loadData() {
-  return { type: actionTypes.LOAD_DATA };
-}
-
-export function loadDataSuccess(data) {
-  return {
-    type: actionTypes.LOAD_DATA_SUCCESS,
-    data,
-  };
-}
-
-export function startClock() {
-  return { type: actionTypes.START_CLOCK };
-}
-
-export function tickClock(isServer) {
-  return {
-    type: actionTypes.TICK_CLOCK,
-    light: !isServer,
-    ts: Date.now(),
-  };
-}
+export default { ...businessActions };

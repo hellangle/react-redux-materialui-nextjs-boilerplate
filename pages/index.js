@@ -10,6 +10,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import businessActions from '../redux/actions/actions';
+import Page from '../components/page';
 
 const styles = theme => ({
   root: {
@@ -19,6 +21,14 @@ const styles = theme => ({
 });
 
 class Index extends React.Component {
+  static async getInitialProps(props) {
+    const { reduxStore, isServer } = props;
+
+    reduxStore.dispatch(businessActions['loginRequest']());
+
+    return { isServer };
+  }
+
   state = {
     open: false,
   };
@@ -51,13 +61,14 @@ class Index extends React.Component {
           </DialogActions>
         </Dialog>
         <Typography variant="h4" gutterBottom>Material-UI</Typography>
-        <Button variant="contained" color="secondary" onClick={this.handleClick}>Super Secret Password</Button>
+        <Page linkTo="/other" />
       </div>
     );
   }
 }
 
 Index.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
 };
 
