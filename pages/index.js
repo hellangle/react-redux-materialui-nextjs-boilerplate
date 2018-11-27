@@ -10,7 +10,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import businessActions from '../redux/actions/actions';
+
+import businessActions, { LOGIN_REQUEST } from '../redux/actions/actions';
 import Page from '../components/page';
 
 const styles = theme => ({
@@ -24,7 +25,8 @@ class Index extends React.Component {
   static async getInitialProps(props) {
     const { reduxStore, isServer } = props;
 
-    reduxStore.dispatch(businessActions['loginRequest']());
+    // eslint-disable-next-line import/no-named-as-default-member
+    reduxStore.dispatch(businessActions[LOGIN_REQUEST]());
 
     return { isServer };
   }

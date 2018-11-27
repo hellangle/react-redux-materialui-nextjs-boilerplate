@@ -4,17 +4,18 @@ import {
 import es6promise from 'es6-promise';
 import 'isomorphic-unfetch';
 
+import { LOGIN_REQUEST, SET_AUTH } from '../actions/actions';
+
 es6promise.polyfill();
 
 function* login(action) {
-  console.log('action -> ', action);
   yield put({
-    type: 'setAuth',
+    type: SET_AUTH,
   });
 }
 
 function* watchLogin() {
-  yield takeLatest('LOGIN_REQUEST', login);
+  yield takeLatest(LOGIN_REQUEST, login);
 }
 
 export default function* rootSaga() {
